@@ -1,0 +1,50 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+# Routes pour UserController
+api_login_check:
+  path: /api/login_check
+
+api_login:
+  path: /api/login
+  controller: App\Controller\UserController::login
+  methods: [POST]
+
+api_register:
+  path: /api/register
+  controller: App\Controller\UserController::register
+  methods: [POST]
+
+api_users_list:
+    path: /api/users
+    controller: 'App\Controller\UserController::getUsers'
+    methods: [GET]
+
+api_user_get:
+    path: /api/users/{id}
+    controller: App\Controller\UserController::getUserById
+    methods: [GET]
+
+api_user_get_by_email:
+    path: /api/users/email/{email}
+    controller: App\Controller\UserController::getUserByEmail
+    methods: [GET]
+
+api_user_delete:
+    path: /api/users/{id}
+    controller: 'App\Controller\UserController::deleteUser'
+    methods: [DELETE]
+
+api_user_delete_by_email:
+    path: /api/users/email/{email}
+    controller: App\Controller\UserController::deleteUserByEmail
+    methods: [DELETE]
+
+# 

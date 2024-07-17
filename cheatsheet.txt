@@ -1,0 +1,49 @@
+Créer le projet back-symfony :
+- composer create-project symfony/skeleton back-symfony
+
+docker-compose down
+docker-compose up -d
+On a 2 images, MariaDB et phpMyAdmin
+
+# Requis
+Ouvrez votre fichier php.ini (situé généralement dans C:\xampp\php\php.ini).
+Décommentez (enlevez le point-virgule) la ligne suivante :
+extension=sodium    
+Puis faire composer install.
+
+# Dépendances
+composer require symfony/maker-bundle --dev
+composer require symfony/orm-pack
+composer require symfony/security-bundle
+composer require lexik/jwt-authentication-bundle
+composer require lexik/jwt-authentication-bundle --with-all-dependencies
+composer require symfony/serializer-pack
+composer require nelmio/cors-bundle
+
+Recup token utilisateur : Invoke-RestMethod -Uri "http://127.0.0.1:8000/api/login_check" -Method Post -ContentType "application/json" -Body '{"email":"user@user.com", "password":"password"}'
+
+# Lancer et arreter symfony
+symfony serve
+symfony server:stop
+
+php bin/console make:user
+php bin/console make:entity MyEntity
+php bin/console make:controller
+
+# Créer ke dossier jwt
+mkdir -p config/jwt
+
+# Update la BDD
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+
+# Recréer la bdd
+php bin/console doctrine:database:drop --force
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+
+# Exception listener
+php bin/console make:subscriber ExceptionSubscriber
+
+# Windows + R
+appwiz.cpl
