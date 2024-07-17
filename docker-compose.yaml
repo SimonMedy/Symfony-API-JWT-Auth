@@ -1,22 +1,24 @@
+version: '3.8'
+
 services:
   mariadb:
     image: mariadb:latest
-    container_name: mariadb_${PROJECT_NAME}_container
+    container_name: mariadb_myapp_container
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: ${PROJECT_NAME}
+      MYSQL_DATABASE: myapp
       MYSQL_USER: user
       MYSQL_PASSWORD: userpassword
     ports:
       - "3307:3306"
     volumes:
-      - ${PROJECT_NAME}_data:/var/lib/mysql
+      - myapp_data:/var/lib/mysql
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: phpmyadmin_${PROJECT_NAME}_container
+    container_name: phpmyadmin_myapp_container
     environment:
-      PMA_HOST: mariadb_${PROJECT_NAME}_container
+      PMA_HOST: mariadb_myapp_container
       PMA_USER: user
       PMA_PASSWORD: userpassword
       PMA_PORT: 3306
@@ -26,4 +28,4 @@ services:
       - mariadb
 
 volumes:
-  ${PROJECT_NAME}_data:
+  myapp_data:
